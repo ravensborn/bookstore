@@ -25,6 +25,7 @@ class UpdateBookRequest extends FormRequest
             'cover_image' => 'sometimes|required|image|mimes:jpg,png|max:' . (10 * 1024),
             'name' => 'sometimes|required|string|max:255',
             'description' => 'sometimes|required|string|max:4000',
+            'category_id' => 'required|integer|exists:categories,id',
             'author' => 'sometimes|required|string|max:255',
             'translator' => 'sometimes|required|string|max:255',
             'publish_year' => 'required|integer',

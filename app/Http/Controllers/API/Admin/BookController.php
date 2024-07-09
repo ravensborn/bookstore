@@ -15,7 +15,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::paginate(20);
+        $books = Book::with(['media', 'category'])->paginate(20);
 
         return response()->json(new BookCollection($books));
     }
