@@ -17,6 +17,7 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'cover' => $this->getCoverImage(),
+            'barcode' => $this->barcode,
             'name' => $this->name,
             'description' => $this->description,
             'category' => $this->category->name,

@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
 
+            $table->longText('barcode')->nullable();
             $table->string('name');
             $table->longText('description')->nullable();
 

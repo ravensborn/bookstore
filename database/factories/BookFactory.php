@@ -18,6 +18,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
+            'barcode' => $this->faker->randomNumber(7, true),
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
             'category_id' => $this->faker->randomElement(Category::all()->pluck('id')),
