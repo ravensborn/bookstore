@@ -23,7 +23,7 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'total' => 'required|integer|gte:0',
-            'paid' => 'required|integer|gte:0',
+            'paid' => 'required|integer|gte:0|lte:total',
         ];
     }
 }

@@ -40,6 +40,10 @@ class OrderController extends Controller
     {
         $validated = $request->validated();
 
+        if($request->integer('total') == $request->integer('paid')) {
+            $validated['status'] = Order::ORDER_STATUS_COMPLETED;
+        }
+
         $order->update($validated);
 
         return response()->json(new OrderResource($order));

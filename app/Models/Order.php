@@ -12,6 +12,11 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'paid' => 'integer',
+        'total' => 'integer',
+    ];
+
     const ORDER_STATUS_PENDING = 'pending';
     const ORDER_STATUS_COMPLETED = 'completed';
     public array $statusArray = [self::ORDER_STATUS_PENDING, self::ORDER_STATUS_COMPLETED];
