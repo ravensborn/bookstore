@@ -25,6 +25,7 @@ class ReportController extends Controller
         return [
             'books_added_in_last_2_weeks' => Book::where('created_at', '>=', Carbon::now()->subWeeks(2))->count(),
             'orders_today' => Order::whereDate('created_at', Carbon::today())->count(),
+            'orders_completed_today' => Order::where('status', Order::ORDER_STATUS_COMPLETED)->whereDate('created_at', Carbon::today())->count(),
             'total_categories' => Category::count(),
             'total_books' => Book::count(),
 

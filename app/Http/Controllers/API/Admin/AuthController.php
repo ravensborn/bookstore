@@ -29,7 +29,8 @@ class AuthController extends Controller
 
             return [
                 'data' => [
-                    'token' => $token
+                    'token' => $token,
+                    'roles' => $user->getRoleNames(),
                 ]
             ];
         }

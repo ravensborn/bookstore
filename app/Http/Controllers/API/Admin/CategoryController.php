@@ -8,8 +8,6 @@ use App\Http\Requests\Categories\UpdateCategoryRequest;
 use App\Http\Resources\Categories\CategoryCollection;
 use App\Http\Resources\Categories\CategoryResource;
 use App\Models\Category;
-use HttpResponse;
-
 class CategoryController extends Controller
 {
     public function index()
