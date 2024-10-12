@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,9 +19,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'api']);
+        $canViewReports = Permission::create(['name' => 'view reports', 'guard_name' => 'api']);
+
+        $canViewReports->assignRole($adminRole);
+
+        $devUser = User::factory()->create([
             'name' => 'Dev User',
             'email' => 'test@example.com',
+        ]);
+
+
+        $devUser->assignRole([$adminRole]);
+
+        $normalUser = User::factory()->create([
+            'name' => 'Normal User',
+            'email' => 'normal@example.com',
         ]);
 
         Category::factory(3)->create();

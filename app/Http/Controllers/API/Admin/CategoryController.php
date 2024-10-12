@@ -8,6 +8,7 @@ use App\Http\Requests\Categories\UpdateCategoryRequest;
 use App\Http\Resources\Categories\CategoryCollection;
 use App\Http\Resources\Categories\CategoryResource;
 use App\Models\Category;
+use HttpResponse;
 
 class CategoryController extends Controller
 {
@@ -45,10 +46,19 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        $category->delete();
+        if ($category->books()->count() > 0) {
 
-        return response()->json([
-            'message' => 'Category has been deleted.'
-        ]);
+            return response()->json([
+                'message' => 'Cannot delete a category that has books.'
+            ], 422);
+
+        } else {
+
+            $category->delete();
+
+            return response()->json([
+                'message' => 'Category has been deleted.'
+            ]);
+        }
     }
 }

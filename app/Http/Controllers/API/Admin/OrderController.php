@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Orders\ListOrdersRequest;
 use App\Http\Requests\Orders\StoreOrderRequest;
 use App\Http\Requests\Orders\UpdateOrderRequest;
 use App\Http\Resources\Orders\OrderCollection;
@@ -11,9 +12,13 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(ListOrdersRequest $request)
     {
-        $orders = Order::paginate(20);
+        $orders = Order::when($request->search, function ($query) use ($request) {
+            $query->where('id', 'like', '%' . $request->search . '%')
+                ->orWhere('customer_name', 'like', '%' . $request->search . '%')
+                ->orWhere('customer_phone_number', 'like', '%' . $request->search . '%');
+        })->paginate(20);
 
         return response()->json(new OrderCollection($orders));
     }

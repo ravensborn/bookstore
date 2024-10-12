@@ -19,7 +19,7 @@ class AuthController extends Controller
 
 
         if (auth()->attempt($credentials)) {
-            $user = User::where('email', 'test@example.com')->first();
+            $user = User::where('email', $credentials['email'])->first();
 
             $token = Str::random(60);
 
